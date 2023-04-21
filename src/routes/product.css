@@ -1,0 +1,29 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+}
+
+.container img {
+  width: 350px;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+
+}
+
+.container .left div {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.container .left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.container .right {
+  padding: 16px;
+  text-align: justify;
+}

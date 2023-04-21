@@ -1,0 +1,18 @@
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 264px);
+  grid-gap: 16pt;
+  justify-content: center;
+}
+
+.page-step {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.empty {
+  font-size: 48px;
+  text-align: center;
+}
