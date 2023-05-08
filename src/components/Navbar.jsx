@@ -1,7 +1,8 @@
+/* eslint-disable react/no-unknown-property */
 import { useRef, useState } from "react";
 import "./navbar.css";
 import { Link, useNavigate } from "react-router-dom";
-const Navbar = ({ setProducts = null }) => {
+const Navbar = ({ setMenus = null, route = '/uploadMenu'}) => {
   const [query, setQuery] = useState("")
 
   const navigate = useNavigate();
@@ -11,23 +12,23 @@ const Navbar = ({ setProducts = null }) => {
     aborter.current?.abort()
     aborter.current = new AbortController();
 
-    fetch(`https://localhost:7095/api/Furniture/searchByName?searchTerm=${query}`, {
+    fetch(`https://localhost:7008/api/Dish/SearchByDishName/searchTerm=${DishName}`, {
       signal: aborter.current.signal
     })
       .then(res => res.json())
-      .then(setProducts)
+      .then(setMenus)
       .catch(console.log)
   }
 
+
   const handleLogout = () => {
-    localStorage.removeItem('username')
-    localStorage.removeItem('token');
+    localStorage.removeItem('isAuthenticated');
     navigate('/login');
   }
 
   return (
-    <div class="navbarcontainer">
-      <div class="contentLeftItems">
+    <div className="navbarcontainer">
+      <div className="contentLeftItems">
         <img
           src="https://www.techbuy.in/wp-content/uploads/2020/09/flipkart-logo-3F33927DAA-seeklogo.com_.svg"
           alt="Scan button"
@@ -35,17 +36,17 @@ const Navbar = ({ setProducts = null }) => {
           width="30px"
         />
         <Link to="/">
-          <h3>Fitcart</h3>
+          <h3>Foodcart</h3>
         </Link>
       </div>
-      <div class="contentRightItems">
-        {setProducts &&
+      <div className="contentRightItems">
+        {setMenus &&
           <>
             <input type="text" placeholder="Search Items" value={query} onChange={(e) => setQuery(e.target.value)} />
             <button onClick={search}>Search</button>
           </>
         }
-        <button onClick={() => navigate('/upload')}>Upload</button>
+        <button onClick={() => navigate(route)}>Upload</button>
         <button onClick={handleLogout}>Logout</button>
       </div>
     </div>

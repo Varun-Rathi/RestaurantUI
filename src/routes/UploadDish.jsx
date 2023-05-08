@@ -1,18 +1,19 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
-const Upload = () => {
+const UploadDish = () => {
   const [formData, setFormData] = useState({
-    ProductName: '', 
-    ProductPrice: 0, 
-    DisplayImage: '',
-    SideView: '',
-    AerialView: '',
-    BackView: '',
+    DishName: '', 
+    DishDescription: '', 
+    DishPrice: 0,
+    DishImageFile: '',
+    DishNature:'',
+   
   });
 
+  const params = useParams();
   const navigate = useNavigate();
   
   const handleSubmit = (event) => {
@@ -22,16 +23,7 @@ const Upload = () => {
       data.append(key, value);
     });
 
-    // [key, value]
-    // [key1, value1]
-    console.log(data);
-    // const config = {
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data'
-    //   }
-    // };
-    
-    fetch(`https://localhost:7095/api/Furniture/CreateProduct`, {
+    fetch(`https://localhost:7008/api/Dish/createDishByCategory/?categoryId=${params.categoryId}`, {
       method: "post",
       body: data,
       // headers: config.headers
@@ -43,13 +35,14 @@ const Upload = () => {
     })
   };
 
+
+  
+
   const handleFileChange = (event) => {
     setFormData({
       ...formData, 
       [event.target.name]: event.target.files?.[0]
     });
-
-    // console.log('hi',formData)
   }
 
   const handleChange = (event) => {
@@ -57,8 +50,6 @@ const Upload = () => {
       ...formData, 
       [event.target.name]: event.target.value
     });
-
-    console.log('hi',formData)
   }
   
 
@@ -86,71 +77,66 @@ const Upload = () => {
             width: "50%",
           }}
         >
-          <h2>Upload Product</h2>
+          <h2>Upload Dish</h2>
           <form onSubmit={handleSubmit} encType="multipart/form-data">
 
-            <label htmlFor="productName">Product name</label>
+            <label htmlFor="dishName">Dish name</label>
             <input
-              value={formData.ProductName}
+              value={formData.MenuName}
               onChange={(event) => handleChange(event)}
-              id="productName"
-              placeholder="Product Name..."
-              name="ProductName"
+              id="dishName"
+              placeholder="Dish Name..."
+              name="DishName"
               type="text"
               style={{ m: 1, width: "100%" }}
             />
-            <label htmlFor="productPrice/">Product price</label>
+            <label htmlFor="dishDescription/">Dish description</label>
             <input
-              value={formData.ProductPrice}
+              value={formData.DishDescription}
               onChange={(event) => handleChange(event)}
-              id="productPrice"
-              placeholder="Product price..."
-              name="ProductPrice"
+              id="dishDescription"
+              placeholder="Dish description..."
+              name="DishDescription"
+              type="text"
+              style={{ m: 1, width: "100%" }}
+            />
+
+
+             <label htmlFor="dishPrice">Dish price</label>
+            <input
+              value={formData.DishPrice}
+              onChange={(event) => handleChange(event)}
+              id="dishPrice"
+              placeholder="Dish price..."
+              name="DishPrice"
               type="number"
               style={{ m: 1, width: "100%" }}
             />
 
-            <label htmlFor="displayImage">Display Image</label>
+
+            <label htmlFor="dishNature">Dish nature</label>
+            <input
+              value={formData.DishNature}
+              onChange={(event) => handleChange(event)}
+              id="dishNature"
+              placeholder="Dish nature..."
+              name="DishNature"
+              type="text"
+              style={{ m: 1, width: "100%" }}
+            />
+
+
+            <label htmlFor="dishImageFile">Dish Image</label>
             <input
               onChange={(event) => handleFileChange(event)}
-              id="displayImage"
-              placeholder="Select Display Image"
-              name="DisplayImage"
+              id="dishImageFile"
+              placeholder="Select Dish Image"
+              name="DishImageFile"
               type="file"
               style={{ m: 1, width: "100%" }}
             />
 
-            <label htmlFor="sideImage">SideView Image</label>
-            <input
-              id="sideImage"
-              onChange={(event) => handleFileChange(event)}
-              placeholder="Select SideView Image"
-              name="SideView"
-              type="file"
-              style={{ m: 1, width: "100%" }}
-            />
-
-            <label htmlFor="aerialImage">AerialView Image</label>
-            <input
-              id="aerialImage"
-              onChange={(event) => handleFileChange(event)}
-              placeholder="Select Aerialview Image"
-              name="AerialView"
-              type="file"
-              style={{ m: 1, width: "100%" }}
-            />
-
-            <label htmlFor="backViewImage">BackView Image</label>
-            <input
-              id="backViewImage"
-              onChange={(event) => handleFileChange(event)}
-              placeholder="Select backView Image"
-              name="BackView"
-              type="file"
-              style={{ m: 1, width: "100%" }}
-            />
-
-            <button>Upload</button>
+            <button>Upload dish</button>
           </form>
         </div>
       </div>
@@ -158,4 +144,4 @@ const Upload = () => {
   );
 };
 
-export default Upload;
+export default UploadDish;

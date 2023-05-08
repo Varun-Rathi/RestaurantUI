@@ -13,13 +13,6 @@ function Register() {
     ConfirmPassword: "",
   });
 
-  useEffect(() => {
-    console.log(registerFormData)
-  
-   
-  }, [registerFormData])
-  
-
 
   const [formError, setFormError] = useState('');
   
@@ -39,7 +32,7 @@ function Register() {
 
     
 
-    fetch(`https://localhost:7095/api/Auth/RegisterUser`, {
+    fetch(`https://localhost:7008/api/Auth/RegisterUser`, {
       method: "post",
       body: JSON.stringify(requestBody),
       headers: config.headers
@@ -51,7 +44,7 @@ function Register() {
        response.text().then(setFormError);
       }
     }).catch(() => {
-      alert("")
+      alert("issue")
     })
 
   };
